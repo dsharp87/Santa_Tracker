@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {% load static %}
+        {% load index %}
+        {% load get_item %}
+        {% load define %}
+        {% load mathfilters %}
+<!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+<!--        <link rel="stylesheet" href="{% static 'main_app/css/style.css' %}" media="screen" title="no title"  charset="utf-8"> -->
+<!-- Put the static files in the static folder inside your app.  Django collects files within all static folders and puts them within a single folder -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="{% static 'scripts/scripts.js' %}"></script>
+        <title>main_app</title>
+    </head>
+    <h1>testing</h1>
+    <body>
+        <table style="width:60%" style="border:2px solid black">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                    </tr>
+
+                    <tr>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        
+        
+        
+        
+        <form action="URL HERE" method="POST">
+            {% csrf_token %}
+            
+            <h1>My Registration Form</h1>
+            <label for="fname">First Name</label>
+            <input type="text" name='fname' id="fname">
+            
+            <p></p>
+            <label for="lname">Last Name</label>
+            <input type="text" name='lname' id="lname">
+
+            <p></p>
+            <label for="email">Email</label>
+            <input type="email" name='email' id="email">
+
+            <p></p>
+            <label for="pswd">Password</label>
+            <input type="password" name='pswd'id="pswd">
+
+            <p></p>
+            <label for="pswd_conf">PW Confirmation</label>
+            <input type="password" name='pswd_conf'id="pswd_conf">
+
+            <p></p>
+            <label for="bday">Birthday</label>
+            <input type="date" name="bday" id="bday">
+
+            <p></p>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+
+            <p></p>
+            <label for="desc">A short description about yourself:</label>
+            <p></p>
+            <textarea id="desc" name="desc" rows="5" cols="35" ></textarea>
+            
+            <p></p>
+            <label for="fav_lang">Favorite Language</label>
+            <select name="fav_lang" id="fav_lang">
+                <option value="py">Python</option>
+                <option value="js">Javascript</option>
+                <option value="c">C</option>
+            </select>
+
+            <p></p>
+            <input type="submit" value="submit">
+
+        </form>
+    </body>
+</html>
