@@ -1,0 +1,79 @@
+<DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Document</title>
+            <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+            <!-- <script type="text/javascript">
+                $(document).ready(function () {
+                    $("form").submit(function() {
+                        console.log($("#street_address").val());
+                        console.log($("#city").val());
+                        console.log($("#state").val());
+                        console.log($("#zip_code").val());
+                        $.get('https://maps.googleapis.com/maps/api/geocode/json?address='+$("#city").val()+','+$("#country").val()+'&key=AIzaSyAqDapqiVRbbDY1yMiVJPaJjdSRO6hlvDI', function(res) {
+                            console.log(res);
+                        });
+                        return false;
+                    });
+                });
+            </script> -->
+            <!-- google reverse giocaching API key: AIzaSyAqDapqiVRbbDY1yMiVJPaJjdSRO6hlvDI -->
+        </head>
+        <body>
+            <h1>Tell Santa What Cities to Visit!</h1>
+            <!-- <h3>Here be the ajax forms</h3>
+            <form action=''>
+                <lable>Your Name: </lable><input type='text' name='user_name' id='user_name'><br><br>
+                <lable>Street Address: </lable><input type='text' name='street_address' id='street_address'><br><br>
+                <lable>City: </lable><input type='text' name='city' id='city'><br><br>
+                <lable>State: </lable><input type='text' name='state' id='state'><br><br>
+                <lable>Zip Code: </lable><input type='text' name='zip_code' id='zip_code'><br><br>
+                <lable>Country: </lable><input type='text' name='country' id='country'><br><br>
+                <lable>Your city: </lable><input type='text' name='city_name' id='city_name'><br><br>
+                <lable>Email Address: </lable><input type='text' name='email' id='email'><br><br>
+                <label>Leave a comment for Santa (optional):</label><br>
+                <textarea name="comment" id = 'commment'></textarea><br>
+                <input type='submit' value='submit AJAX'>
+            </form><br><br><br><br> -->
+            
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <h3>Here be the views forms</h3>
+            <form action='process' method="POST">
+                {% csrf_token %}
+                <lable>City: </lable><input type='text' name='city' id='city'><br><br>
+                <lable>Country: </lable><input type='text' name='country' id='country'><br><br>
+                <input type='submit' value='submit VIEWS'>
+            </form>
+            <div id='result_box'>
+                <table>
+                    <thead>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Request Count</th>
+                    </thead>
+                    <tbody>
+                        {% for city in all_cities %}
+                        <tr>
+                            <td>{{city.city}}</td>
+                            <td>{{city.country}}</td>
+                            <td>{{city.lat}}</td>
+                            <td>{{city.lng}}</td>
+                            <td>{{city.entry_count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+            </div>
+        </body>
+    </html>
