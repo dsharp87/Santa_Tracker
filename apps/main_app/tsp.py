@@ -71,7 +71,11 @@ def shortest_dist_tsp(city_coords, city_names):
 
     return results
 
-
+# Input dictionary route_cities = {
+#                                   'city_names'=[seattle, vancouver, ....]
+#                                   'city_coords'= [[lat long], [lat long]...]
+#                                   'start_city' = 'SOME CITY'
+#                                   }
 def optimized_santa_route(route_cities):
     #break dictionary apart 
     city_names = route_cities['city_names']
