@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.city_collector_app',
+    'apps.main_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
