@@ -22,10 +22,9 @@ class CityManager(models.Manager):
             return (True, "yay")
 
     def add_city(self, city, country, lat, lng):
-        # valdate agiast unique lat/lng  intead of city/country
-        print len(City.objects.filter(country = country).filter(city = city))
-        if len(City.objects.filter(country = country).filter(city = city)) > 0:
-            this_city = City.objects.filter(country = country).filter(city = city)[0]
+        print len(City.objects.filter(lat = lat).filter(lng = lng))
+        if len(City.objects.filter(lat = lat).filter(lng = lng)) > 0:
+            this_city = City.objects.filter(lat = lat).filter(lng = lng)[0]
             this_city.entry_count += 1
             this_city.save()
             print this_city.entry_count
@@ -39,7 +38,7 @@ class CityManager(models.Manager):
 
 class City(models.Model):
     city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    country = models.CharField(max_length=255) # country needs to be its own class/table
     lat = models.FloatField()
     lng = models.FloatField()
     population = models.IntegerField(default = 0)
@@ -48,3 +47,6 @@ class City(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     objects = CityManager()
+
+
+#santa actions table

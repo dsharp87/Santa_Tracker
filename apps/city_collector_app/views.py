@@ -31,8 +31,7 @@ def process(request):
     print "im processing"
     results = City.objects.form_validator(request.POST)
     if results[0]:
-        r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address='+request.POST['city']+','+request.POST['country']+'&key=AIzaSyAqDapqiVRbbDY1yMiVJPaJjdSRO6hlvDI').json()
-        # search needs to contain component filters for country and locality
+        r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=&components=locality:' + request.POST['city'] + '|country:' + request.POST['country'] + '&key=AIzaSyAqDapqiVRbbDY1yMiVJPaJjdSRO6hlvDI').json()
         if r['status'] == 'OK':
             print r['results'][0]['address_components']
             print r['results'][0]['geometry']
