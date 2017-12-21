@@ -55,25 +55,50 @@
                 <input type='submit' value='submit VIEWS'>
             </form>
             <div id='result_box'>
+                <h1>Cities</h1>
                 <table>
                     <thead>
                         <th>City</th>
                         <th>Country</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
+                        <th>percent children</th>
                         <th>Request Count</th>
                     </thead>
                     <tbody>
                         {% for city in all_cities %}
                         <tr>
                             <td>{{city.city}}</td>
-                            <td>{{city.country}}</td>
+                            <td>{{city.country.name}}</td>
                             <td>{{city.lat}}</td>
                             <td>{{city.lng}}</td>
+                            <td>{{city.country.percent_children}}</td>
                             <td>{{city.entry_count}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
+                </table>
+                <br>
+                <h1>Countries</h1>
+                <table>
+                    <thead>
+                        <th>Country</th>
+                        <th>Country Code</th>
+                        <th>Population</th>
+                        <th>Percent_children</th>
+                        <th>City_count</th>
+                    </thead>
+                    <tbody>
+                        {% for country in all_countries %}
+                        <tr>
+                            <td>{{country.name}}</td>
+                            <td>{{country.code}}</td>
+                            <td>{{country.pop}}</td>
+                            <td>{{country.percent_children}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </body>
     </html>
