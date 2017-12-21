@@ -5,5 +5,6 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^clear$',views.clear),
     url(r'^goHome$', views.goHome),
+    url(r'^travel$', views.routegen),
 
     ]

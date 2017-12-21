@@ -6,6 +6,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from time import gmtime, strftime
 from datetime import datetime
 import random
+from tsp.py import optimized_santa_route
+from ..city_collector_app.models import City, Country
 
 # Create your views here.
 '''
@@ -21,8 +23,29 @@ https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destinat
 
 
 '''
+def routegen(request):
+    route_cities = {
+        'city_names' : [],
+        'city_coords' : [],
+        'start_city' : request.session['start_city']
+    }
+    cities = City.objects.all()
+    for city in cities:
+        route_cities['city_names'].append(city.city)
+        route_cities['city_coords'].append([city.lat, city.lng])
+    
+    route_results = optimized_santa_route(route_cities)
+    time_per_present = 0.001
 
-
+    for city in route_results['travel_plan']:
+        city_obj = City.objects.get(city=city.name)
+        city_pop = city_obj.population
+        youth_percent = city_obj.country.youth_percent
+        city_present_count = city_pop * youth_percent
+        city['time']  =  time_per_present * city_present_count
+        city['present_count'] = int(city_present_count)
+    
+    return render(request, 'main_app/travel.html',route_results)
 
 
 def index(request):

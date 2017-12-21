@@ -40,7 +40,11 @@ def shortest_dist_tsp(city_coords, city_names):
         'travel_plan':[],
     }
 
-    new_city = {city_names[0]:city_coords[0]}
+    new_city = {
+        'name': city_names[0],
+        'coords': city_coords[0]}
+    
+    
     results['travel_plan'].append(new_city)
     path_coords = [city_coords[0]]
     city_coords.remove(city_coords[0])
@@ -59,7 +63,12 @@ def shortest_dist_tsp(city_coords, city_names):
         city_index = city_coords.index(nearest)
         
         #add to dictionary
-        new_city = {city_names[city_index]:city_coords[city_index]}
+        new_city = {
+            'name':city_names[city_index],
+            'coords':city_coords[city_index]
+        }
+        
+        
         results['travel_plan'].append(new_city)
         path_coords.append(nearest)
         results['miles_traveled'] += distance(path_coords[-2], path_coords[-1])
