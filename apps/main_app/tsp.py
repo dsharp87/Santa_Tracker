@@ -35,17 +35,21 @@ def haversine(angle):
   return h
 
 def shortest_dist_tsp(city_coords, city_names):
+    # output dictionary
     results = {
         'miles_traveled': 0,
         'travel_plan':[],
     }
 
+    # initial entry into dictionary (this will be start city)
     new_city = {
         'name': city_names[0],
-        'coords': city_coords[0]}
+        'coords': city_coords[0]
+        }
     
-    
+    # add new city to outdictionary
     results['travel_plan'].append(new_city)
+    # not sure what this does yet
     path_coords = [city_coords[0]]
     city_coords.remove(city_coords[0])
     city_names.remove(city_names[0])
@@ -58,7 +62,7 @@ def shortest_dist_tsp(city_coords, city_names):
     print city_names
     print '8'*50
     while city_coords:
-        #Find closest coordinate
+        #Find closest coordinate using distance function defined above
         nearest = min(city_coords, key=lambda x: distance(path_coords[-1], x))
         city_index = city_coords.index(nearest)
         
@@ -68,8 +72,9 @@ def shortest_dist_tsp(city_coords, city_names):
             'coords':city_coords[city_index]
         }
         
-        
+        # put new city into results dictionary
         results['travel_plan'].append(new_city)
+        # put new coords onto end of path list
         path_coords.append(nearest)
         results['miles_traveled'] += distance(path_coords[-2], path_coords[-1])
         
@@ -77,7 +82,11 @@ def shortest_dist_tsp(city_coords, city_names):
         city_coords.remove(nearest)
         city_names.remove(city_names[city_index])
 
-
+    # results = {
+    #     'miles_traveled': 0,
+    #     'travel_plan':[{name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}],
+    # }
+    # this is returned back to optimized_santa_route (miles travled and travel plan list of dictionaries)
     return results
 
 # Input dictionary route_cities = {
@@ -86,7 +95,7 @@ def shortest_dist_tsp(city_coords, city_names):
 #                                   'start_city' = 'SOME CITY'
 #                                   }
 def optimized_santa_route(route_cities):
-    #break dictionary apart 
+    #break dictionary apart to be passed into shortest_dist_tsp function
     city_names = route_cities['city_names']
     city_coords = route_cities['city_coords']
     start_city = route_cities['start_city']
@@ -103,6 +112,12 @@ def optimized_santa_route(route_cities):
     print city_coords
     print '8'*100   
     
+    # call tsp function and pass results back to views file
+    # results = {
+    #     'miles_traveled': 0,
+    #     'travel_plan':[{name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}],
+    # }
+    # this is returned back to optimized_santa_route (miles travled and travel plan list of dictionaries)
     return shortest_dist_tsp(city_coords, city_names)
     
 # santa_test = {

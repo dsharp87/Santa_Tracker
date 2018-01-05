@@ -6,7 +6,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from time import gmtime, strftime
 from datetime import datetime
 import random
-from tsp.py import optimized_santa_route
+from tsp import optimized_santa_route
 from ..city_collector_app.models import City, Country
 
 # Create your views here.
@@ -24,19 +24,24 @@ https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destinat
 
 '''
 def routegen(request):
+    #create dictionary that will be passed to optimized santa_route
     route_cities = {
         'city_names' : [],
         'city_coords' : [],
         'start_city' : request.session['start_city']
     }
+    #get all cities from database, and add them to dictionary
     cities = City.objects.all()
     for city in cities:
         route_cities['city_names'].append(city.city)
         route_cities['city_coords'].append([city.lat, city.lng])
     
+    #call optimize tsp file on our city list
     route_results = optimized_santa_route(route_cities)
     time_per_present = 0.001
 
+    # this reads the travel plan and calculates num of presents and time to diliver them all
+    # this won't function until we are able to get city pop, and then utilize results in mapping view
     for city in route_results['travel_plan']:
         city_obj = City.objects.get(city=city.name)
         city_pop = city_obj.population
@@ -45,6 +50,12 @@ def routegen(request):
         city['time']  =  time_per_present * city_present_count
         city['present_count'] = int(city_present_count)
     
+    #passes our dictionary from tsp 
+    # results = {
+    #     'miles_traveled': 0,
+    #     'travel_plan':[{name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}, {name:city_name, coords:[xx.xxx, xx.xxxx]}],
+    # }
+    # this is returned back to optimized_santa_route (miles travled and travel plan list of dictionaries)
     return render(request, 'main_app/travel.html',route_results)
 
 

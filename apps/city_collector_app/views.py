@@ -36,4 +36,8 @@ def process(request):
     for key, error_message in results[1].iteritems():
         messages.error(request, error_message, extra_tags=key)
 
+#set santa start city here, or maybe as a link tag on the printed tables
+
+#package up db and send to main app for route creations here
+
     return redirect('/city_collector/')
